@@ -1,108 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2a6f">
 <title>SAIU Swimming Workshop – Registration</title>
+
 <style>
-:root{--navy:#0b2a6f;--blue:#2a7de1;--sky:#e6f3ff;--yellow:#ffc933;--bg:#f4f9ff;--card:#fff;--text:#12224a;--muted:#5b6b8c;--line:#cfe0f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1430;--card:#10204a;--text:#eaf2ff;--muted:#9fb3d9;--line:#2a3f78;--sky:#14295c}}
-:root[data-theme="dark"]{--bg:#0a1430;--card:#10204a;--text:#eaf2ff;--muted:#9fb3d9;--line:#2a3f78;--sky:#14295c}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.hero{background:var(--navy);color:#fff;padding:28px 20px 40px;text-align:center}
-.hero small{letter-spacing:.15em;text-transform:uppercase;opacity:.8}
-.hero h1{margin:8px 0 4px;font-size:1.7rem}
-.hero h1 span{color:var(--yellow)}
-.hero p{margin:0;opacity:.9}
-main{max-width:520px;margin:-24px auto 32px;padding:0 14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
-label{display:block;font-weight:600;margin:14px 0 6px;font-size:.95rem}
-input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font:inherit}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--blue);border-color:transparent}
-.opts{display:flex;gap:8px;flex-wrap:wrap}
-.opts label{margin:0;font-weight:500;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--bg)}
-.opts input{width:auto}
-button{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;background:var(--yellow);color:#1a1a1a;font-weight:700;font-size:1rem}
-button:disabled{opacity:.6}
-.msg{margin-top:14px;padding:12px;border-radius:10px;display:none;font-size:.95rem}
-.err{background:#ffe3e3;color:#8a1010}
-.ok{text-align:center;padding:30px 10px}
-.ok h2{color:var(--blue);margin:0 0 8px}
-.tag{text-align:center;color:var(--muted);margin-top:16px;font-size:.9rem}
+:root {
+  --navy: #0b2a6f;
+  --blue: #2a7de1;
+  --sky: #e6f3ff;
+  --yellow: #ffc933;
+  --bg: #f4f9ff;
+  --card: #ffffff;
+  --text: #12224a;
+  --muted: #5b6b8c;
+  --line: #cfe0f5;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero {
+  background: var(--navy);
+  color: #ffffff;
+  padding: 30px 18px 42px;
+  text-align: center;
+}
+
+.hero small {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.hero h1 {
+  margin: 10px 0 6px;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+}
+
+.hero h1 span {
+  color: var(--yellow);
+}
+
+.hero p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+main {
+  width: 100%;
+  max-width: 540px;
+  margin: -24px auto 30px;
+  padding: 0 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(11, 42, 111, 0.08);
+}
+
+label.field-label {
+  display: block;
+  font-weight: 600;
+  margin: 16px 0 7px;
+  font-size: 0.95rem;
+}
+
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.opts label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.opts input {
+  margin: 0;
+  accent-color: var(--blue);
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 18px;
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
+.consent input {
+  flex-shrink: 0;
+  margin-top: 4px;
+  accent-color: var(--blue);
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--yellow);
+  color: #1a1a1a;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.96);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.msg {
+  display: none;
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.err {
+  background: #ffe3e3;
+  color: #8a1010;
+}
+
+.info {
+  display: block;
+  background: var(--sky);
+  color: var(--text);
+}
+
+.ok {
+  padding: 22px 6px;
+  text-align: center;
+}
+
+.ok h2 {
+  margin: 0 0 10px;
+  color: var(--blue);
+}
+
+.ok p {
+  line-height: 1.6;
+}
+
+.wa-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--yellow);
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.tag {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 380px) {
+  .card {
+    padding: 15px;
+  }
+
+  .opts {
+    gap: 6px;
+  }
+
+  .opts label {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="hero">
+
+<header class="hero">
   <small>SAI University</small>
   <h1>Welcome to <span>SAIU</span></h1>
   <p>Swimming Workshop · Registration</p>
-</div>
+</header>
+
 <main>
-  <div class="card" id="card">
-    <div id="formWrap">
-      <label for="name">Full name *</label>
-      <input id="name" autocomplete="name" placeholder="Your name">
-      <label for="phone">Phone / WhatsApp *</label>
-      <input id="phone" type="tel" autocomplete="tel" placeholder="10-digit number">
-      <label for="email">Email *</label>
-      <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
-      <label for="id">Student / Staff ID</label>
-      <input id="id" placeholder="Optional">
-      <label for="dept">Department / Year</label>
-      <input id="dept" placeholder="e.g. CSE, 2nd year">
-      <label>Gender</label>
+  <section class="card">
+
+    <form id="registrationForm" novalidate>
+
+      <label class="field-label" for="name">Full Name *</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        placeholder="Enter your full name"
+        maxlength="100"
+        required
+      >
+
+      <label class="field-label" for="phone">Phone / WhatsApp *</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        autocomplete="tel"
+        inputmode="tel"
+        placeholder="10-digit Indian mobile number"
+        maxlength="20"
+        required
+      >
+
+      <label class="field-label" for="email">Email *</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        maxlength="150"
+        required
+      >
+
+      <label class="field-label" for="studentId">Student / Staff ID</label>
+      <input
+        id="studentId"
+        name="studentId"
+        type="text"
+        placeholder="Optional"
+        maxlength="50"
+      >
+
+      <label class="field-label" for="dept">Department / Year</label>
+      <input
+        id="dept"
+        name="dept"
+        type="text"
+        placeholder="e.g. CSE, 2nd year"
+        maxlength="100"
+      >
+
+      <label class="field-label">Gender</label>
       <div class="opts" id="gender">
-        <label><input type="radio" name="g" value="Female">Female</label>
-        <label><input type="radio" name="g" value="Male">Male</label>
-        <label><input type="radio" name="g" value="Other">Other</label>
+        <label>
+          <input type="radio" name="gender" value="Female">
+          Female
+        </label>
+        <label>
+          <input type="radio" name="gender" value="Male">
+          Male
+        </label>
+        <label>
+          <input type="radio" name="gender" value="Other">
+          Other
+        </label>
       </div>
-      <label>Swimming level *</label>
+
+      <label class="field-label">Swimming Level *</label>
       <div class="opts" id="level">
-        <label><input type="radio" name="l" value="Beginner">Beginner</label>
-        <label><input type="radio" name="l" value="Intermediate">Intermediate</label>
-        <label><input type="radio" name="l" value="Advanced">Advanced</label>
+        <label>
+          <input type="radio" name="level" value="Beginner" required>
+          Beginner
+        </label>
+        <label>
+          <input type="radio" name="level" value="Intermediate">
+          Intermediate
+        </label>
+        <label>
+          <input type="radio" name="level" value="Advanced">
+          Advanced
+        </label>
       </div>
-      <label for="health">Health conditions we should know about</label>
-      <textarea id="health" rows="2" placeholder="Optional"></textarea>
-      <label class="opts" style="border:0;padding:0;background:none;margin-top:14px"><span style="display:flex;gap:8px;align-items:flex-start;font-weight:500"><input type="checkbox" id="consent" style="margin-top:4px">I confirm I'm medically fit to swim and agree to follow the instructors' safety rules.</span></label>
-      <button id="submit">Register via WhatsApp</button>
-      <div class="msg err" id="err"></div>
-    </div>
-    <div class="ok" id="done" style="display:none">
-      <h2>You're registered! 🏊</h2>
-      <p>Thanks <b id="who"></b>. WhatsApp should open with your details filled in. Just tap <b>Send</b> to complete your registration.</p><p><a id="wa" href="#" target="_blank" style="color:var(--blue);font-weight:700">Open WhatsApp again</a></p>
-    </div>
-  </div>
+
+      <label class="field-label" for="health">
+        Health Conditions We Should Know About
+      </label>
+      <textarea
+        id="health"
+        name="health"
+        rows="3"
+        maxlength="1000"
+        placeholder="Optional. Share any relevant information."
+      ></textarea>
+
+      <label class="consent" for="consent">
+        <input id="consent" type="checkbox" required>
+        <span>
+          I confirm that I am medically fit to participate in swimming
+          activities and agree to follow the instructors' safety rules.
+        </span>
+      </label>
+
+      <button type="submit" id="submitBtn">
+        Register via WhatsApp
+      </button>
+
+      <div
+        class="msg err"
+        id="errorMessage"
+        role="alert"
+        aria-live="polite"
+      ></div>
+
+    </form>
+
+    <section id="successSection" class="ok hidden" aria-live="polite">
+      <h2>Registration Message Ready! 🏊</h2>
+      <p>
+        Thank you, <strong id="who"></strong>!
+      </p>
+      <p>
+        WhatsApp should open with your registration details.
+        Please review the message and tap <strong>Send</strong>
+        to complete your registration.
+      </p>
+      <p id="fallbackMessage">
+        If WhatsApp did not open, use the button below.
+      </p>
+      <a
+        id="waLink"
+        class="wa-link"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open WhatsApp
+      </a>
+      <button type="button" id="editBtn">
+        Back to Form
+      </button>
+    </section>
+
+  </section>
+
   <p class="tag">Dive into a healthier, happier you!</p>
 </main>
+
 <script>
-(function(){
-  var $=function(i){return document.getElementById(i)};
-  function val(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:""}
-  function showErr(t){var e=$("err");e.textContent=t;e.style.display="block"}
-  $("submit").addEventListener("click",async function(){
-    $("err").style.display="none";
-    var d={name:$("name").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),
-      studentId:$("id").value.trim(),dept:$("dept").value.trim(),gender:val("g"),level:val("l"),
-      health:$("health").value.trim(),consent:$("consent").checked};
-    if(!d.name||!d.phone||!d.email||!d.level)return showErr("Please fill the required fields (*).");
-    if(!/^\S+@\S+\.\S+$/.test(d.email))return showErr("Please enter a valid email.");
-    if(d.phone.replace(/\D/g,"").length<10)return showErr("Please enter a valid phone number.");
-    if(!d.consent)return showErr("Please tick the confirmation box.");
-    var lines=["*SAIU Swimming Workshop – Registration*","","Name: "+d.name,"Phone: "+d.phone,"Email: "+d.email];
-    if(d.studentId)lines.push("ID: "+d.studentId);
-    if(d.dept)lines.push("Dept/Year: "+d.dept);
-    if(d.gender)lines.push("Gender: "+d.gender);
-    lines.push("Level: "+d.level);
-    if(d.health)lines.push("Health notes: "+d.health);
-    lines.push("Confirmed fit to swim: Yes");
-    var url="https://wa.me/916301829669?text="+encodeURIComponent(lines.join("\n"));
-    $("who").textContent=d.name;$("formWrap").style.display="none";$("done").style.display="block";
-    $("wa").href=url;
-    window.open(url,"_blank");
+(function () {
+  "use strict";
+
+  const form = document.getElementById("registrationForm");
+  const errorMessage = document.getElementById("errorMessage");
+  const successSection = document.getElementById("successSection");
+  const submitBtn = document.getElementById("submitBtn");
+  const waLink = document.getElementById("waLink");
+
+  // Organizer's WhatsApp number in international format.
+  // Replace this number if the workshop organizer changes.
+  const ORGANIZER_NUMBER = "916301829669";
+
+  function getValue(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  function getRadioValue(name) {
+    const selected = document.querySelector(
+      'input[name="' + name + '"]:checked'
+    );
+
+    return selected ? selected.value : "";
+  }
+
+  function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+  }
+
+  function clearError() {
+    errorMessage.textContent = "";
+    errorMessage.style.display = "none";
+  }
+
+  function validateForm(data) {
+    if (!data.name || !data.phone || !data.email || !data.level) {
+      return "Please fill in all required fields marked with *.";
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      return "Please enter a valid email address.";
+    }
+
+    // Accept a 10-digit Indian mobile number or a number
+    // prefixed with +91, with optional spaces or hyphens.
+    const phone = data.phone.replace(/[\s-]/g, "");
+
+    if (!/^(?:\+91)?[6-9]\d{9}$/.test(phone)) {
+      return "Please enter a valid Indian mobile number.";
+    }
+
+    if (!data.consent) {
+      return "Please confirm the swimming safety declaration.";
+    }
+
+    return "";
+  }
+
+  function buildWhatsAppMessage(data) {
+    const lines = [
+      "*SAIU Swimming Workshop - Registration*",
+      "",
+      "Name: " + data.name,
+      "Phone: " + data.phone,
+      "Email: " + data.email
+    ];
+
+    if (data.studentId) {
+      lines.push("Student/Staff ID: " + data.studentId);
+    }
+
+    if (data.dept) {
+      lines.push("Department/Year: " + data.dept);
+    }
+
+    if (data.gender) {
+      lines.push("Gender: " + data.gender);
+    }
+
+    lines.push("Swimming Level: " + data.level);
+
+    if (data.health) {
+      lines.push("Health Information: " + data.health);
+    }
+
+    lines.push("Safety Declaration: Confirmed");
+
+    return lines.join("\n");
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    clearError();
+
+    const data = {
+      name: getValue("name"),
+      phone: getValue("phone"),
+      email: getValue("email"),
+      studentId: getValue("studentId"),
+      dept: getValue("dept"),
+      gender: getRadioValue("gender"),
+      level: getRadioValue("level"),
+      health: getValue("health"),
+      consent: document.getElementById("consent").checked
+    };
+
+    const validationError = validateForm(data);
+
+    if (validationError) {
+      showError(validationError);
+      return;
+    }
+
+    const message = buildWhatsAppMessage(data);
+
+    const whatsappURL =
+      "https://wa.me/" +
+      ORGANIZER_NUMBER +
+      "?text=" +
+      encodeURIComponent(message);
+
+    document.getElementById("who").textContent = data.name;
+    waLink.href = whatsappURL;
+
+    form.classList.add("hidden");
+    successSection.classList.remove("hidden");
+
+    // Open synchronously from the user's submit action.
+    // If the browser blocks the new tab, the visible link
+    // remains available as a fallback.
+    const whatsappWindow = window.open(
+      whatsappURL,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+    if (!whatsappWindow) {
+      document.getElementById("fallbackMessage").textContent =
+        "WhatsApp could not open automatically. Tap the button below.";
+    }
   });
+
+  document.getElementById("editBtn").addEventListener("click", function () {
+    successSection.classList.add("hidden");
+    form.classList.remove("hidden");
+  });
+
+  waLink.addEventListener("click", function () {
+    // The participant must still press Send inside WhatsApp.
+  });
+
 })();
 </script>
+
 </body>
 </html>
