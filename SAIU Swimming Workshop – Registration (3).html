@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SAIU Swimming Workshop – Registration</title>
+<style>
+:root{--navy:#0b2a6f;--blue:#2a7de1;--sky:#e6f3ff;--yellow:#ffc933;--bg:#f4f9ff;--card:#fff;--text:#12224a;--muted:#5b6b8c;--line:#cfe0f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1430;--card:#10204a;--text:#eaf2ff;--muted:#9fb3d9;--line:#2a3f78;--sky:#14295c}}
+:root[data-theme="dark"]{--bg:#0a1430;--card:#10204a;--text:#eaf2ff;--muted:#9fb3d9;--line:#2a3f78;--sky:#14295c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.hero{background:var(--navy);color:#fff;padding:28px 20px 40px;text-align:center}
+.hero small{letter-spacing:.15em;text-transform:uppercase;opacity:.8}
+.hero h1{margin:8px 0 4px;font-size:1.7rem}
+.hero h1 span{color:var(--yellow)}
+.hero p{margin:0;opacity:.9}
+main{max-width:520px;margin:-24px auto 32px;padding:0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+label{display:block;font-weight:600;margin:14px 0 6px;font-size:.95rem}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue);border-color:transparent}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts label{margin:0;font-weight:500;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:var(--bg)}
+.opts input{width:auto}
+button{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;background:var(--yellow);color:#1a1a1a;font-weight:700;font-size:1rem}
+button:disabled{opacity:.6}
+.msg{margin-top:14px;padding:12px;border-radius:10px;display:none;font-size:.95rem}
+.err{background:#ffe3e3;color:#8a1010}
+.ok{text-align:center;padding:30px 10px}
+.ok h2{color:var(--blue);margin:0 0 8px}
+.tag{text-align:center;color:var(--muted);margin-top:16px;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="hero">
+  <small>SAI University</small>
+  <h1>Welcome to <span>SAIU</span></h1>
+  <p>Swimming Workshop · Registration</p>
+</div>
+<main>
+  <div class="card" id="card">
+    <div id="formWrap">
+      <label for="name">Full name *</label>
+      <input id="name" autocomplete="name" placeholder="Your name">
+      <label for="phone">Phone / WhatsApp *</label>
+      <input id="phone" type="tel" autocomplete="tel" placeholder="10-digit number">
+      <label for="email">Email *</label>
+      <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="id">Student / Staff ID</label>
+      <input id="id" placeholder="Optional">
+      <label for="dept">Department / Year</label>
+      <input id="dept" placeholder="e.g. CSE, 2nd year">
+      <label>Gender</label>
+      <div class="opts" id="gender">
+        <label><input type="radio" name="g" value="Female">Female</label>
+        <label><input type="radio" name="g" value="Male">Male</label>
+        <label><input type="radio" name="g" value="Other">Other</label>
+      </div>
+      <label>Swimming level *</label>
+      <div class="opts" id="level">
+        <label><input type="radio" name="l" value="Beginner">Beginner</label>
+        <label><input type="radio" name="l" value="Intermediate">Intermediate</label>
+        <label><input type="radio" name="l" value="Advanced">Advanced</label>
+      </div>
+      <label for="health">Health conditions we should know about</label>
+      <textarea id="health" rows="2" placeholder="Optional"></textarea>
+      <label class="opts" style="border:0;padding:0;background:none;margin-top:14px"><span style="display:flex;gap:8px;align-items:flex-start;font-weight:500"><input type="checkbox" id="consent" style="margin-top:4px">I confirm I'm medically fit to swim and agree to follow the instructors' safety rules.</span></label>
+      <button id="submit">Register via WhatsApp</button>
+      <div class="msg err" id="err"></div>
+    </div>
+    <div class="ok" id="done" style="display:none">
+      <h2>You're registered! 🏊</h2>
+      <p>Thanks <b id="who"></b>. WhatsApp should open with your details filled in. Just tap <b>Send</b> to complete your registration.</p><p><a id="wa" href="#" target="_blank" style="color:var(--blue);font-weight:700">Open WhatsApp again</a></p>
+    </div>
+  </div>
+  <p class="tag">Dive into a healthier, happier you!</p>
+</main>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function val(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:""}
+  function showErr(t){var e=$("err");e.textContent=t;e.style.display="block"}
+  $("submit").addEventListener("click",async function(){
+    $("err").style.display="none";
+    var d={name:$("name").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),
+      studentId:$("id").value.trim(),dept:$("dept").value.trim(),gender:val("g"),level:val("l"),
+      health:$("health").value.trim(),consent:$("consent").checked};
+    if(!d.name||!d.phone||!d.email||!d.level)return showErr("Please fill the required fields (*).");
+    if(!/^\S+@\S+\.\S+$/.test(d.email))return showErr("Please enter a valid email.");
+    if(d.phone.replace(/\D/g,"").length<10)return showErr("Please enter a valid phone number.");
+    if(!d.consent)return showErr("Please tick the confirmation box.");
+    var lines=["*SAIU Swimming Workshop – Registration*","","Name: "+d.name,"Phone: "+d.phone,"Email: "+d.email];
+    if(d.studentId)lines.push("ID: "+d.studentId);
+    if(d.dept)lines.push("Dept/Year: "+d.dept);
+    if(d.gender)lines.push("Gender: "+d.gender);
+    lines.push("Level: "+d.level);
+    if(d.health)lines.push("Health notes: "+d.health);
+    lines.push("Confirmed fit to swim: Yes");
+    var url="https://wa.me/916301829669?text="+encodeURIComponent(lines.join("\n"));
+    $("who").textContent=d.name;$("formWrap").style.display="none";$("done").style.display="block";
+    $("wa").href=url;
+    window.open(url,"_blank");
+  });
+})();
+</script>
+</body>
+</html>
